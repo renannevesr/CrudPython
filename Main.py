@@ -19,22 +19,18 @@ conexao = mysql.connector.connect(
 # executar a coneção com o mysql
 cursor = conexao.cursor()
 
-# CREATE
-
 
 def create():
     nome_produto = input(" Nome do produto cadastrado:")
     valor_produto = input(" Valor do produto cadastrado:")
-    comando = f"INSERT INTO vendas (nome_produto, valor) VALUES ('{nome_produto}','{valor_produto}')"
-    cursor.execute(comando)
+    query = f"INSERT INTO vendas (nome_produto, valor) VALUES ('{nome_produto}','{valor_produto}')"
+    cursor.execute(query)
     conexao.commit()  # edita o banco de dados
-
-# READ
 
 
 def read():
-    comando = "SELECT * FROM vendas"
-    cursor.execute(comando)
+    query = "SELECT * FROM vendas"
+    cursor.execute(query)
     leitura = cursor.fetchall()  # leitura do banco de dados
     cod = leitura[0]
     cod = list(cod)  # transformando a tupla em lista
@@ -44,8 +40,15 @@ def read():
 def update():
     nome_produto = input(" Nome do produto a ser alterado:")
     valor_produto = input(" Novo valor do produto:")
-    comando = f"UPDATE vendas SET valor = {valor_produto} WHERE nome_produto = '{nome_produto}'"
-    cursor.execute(comando)
+    query = f"UPDATE vendas SET valor = {valor_produto} WHERE nome_produto = '{nome_produto}'"
+    cursor.execute(query)
+    conexao.commit()
+
+
+def delete():
+    nome_produto = input(" Nome do produto a ser deletado:")
+    query = f"DELETE FROM vendas WHERE nome_produto = '{nome_produto}'"
+    cursor.execute(query)
     conexao.commit()
 
 
