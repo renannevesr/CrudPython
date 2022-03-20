@@ -37,8 +37,16 @@ def read():
     cursor.execute(comando)
     leitura = cursor.fetchall()  # leitura do banco de dados
     cod = leitura[0]
-    cod = list(cod)
+    cod = list(cod)  # transformando a tupla em lista
     print("Codigo:", cod[0], " Produto:", cod[1], " Valor:", cod[2])
+
+
+def update():
+    nome_produto = input(" Nome do produto a ser alterado:")
+    valor_produto = input(" Novo valor do produto:")
+    comando = f"UPDATE vendas SET valor = {valor_produto} WHERE nome_produto = '{nome_produto}'"
+    cursor.execute(comando)
+    conexao.commit()
 
 
 def saida():  # fechando as conexoes
@@ -47,5 +55,6 @@ def saida():  # fechando as conexoes
 
 
 # create()
-read()
+# read()
+update()
 saida()
