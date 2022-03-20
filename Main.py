@@ -19,14 +19,33 @@ conexao = mysql.connector.connect(
 # executar a coneção com o mysql
 cursor = conexao.cursor()
 
-# Create
-nome_produto = input(" Nome do produto cadastrado:")
-valor_produto = input(" Valor do produto cadastrado:")
-comando = f"INSERT INTO vendas (nome_produto, valor) VALUES ('{nome_produto}','{valor_produto}')"
-cursor.execute(comando)
-conexao.commit()  # edita o banco de dados
+# CREATE
 
 
-# fechando as conexoes
-cursor.close()
-conexao.close()
+def create():
+    nome_produto = input(" Nome do produto cadastrado:")
+    valor_produto = input(" Valor do produto cadastrado:")
+    comando = f"INSERT INTO vendas (nome_produto, valor) VALUES ('{nome_produto}','{valor_produto}')"
+    cursor.execute(comando)
+    conexao.commit()  # edita o banco de dados
+
+# READ
+
+
+def read():
+    comando = "SELECT * FROM vendas"
+    cursor.execute(comando)
+    leitura = cursor.fetchall()  # leitura do banco de dados
+    cod = leitura[0]
+    cod = list(cod)
+    print("Codigo:", cod[0], " Produto:", cod[1], " Valor:", cod[2])
+
+
+def saida():  # fechando as conexoes
+    cursor.close()
+    conexao.close()
+
+
+# create()
+read()
+saida()
